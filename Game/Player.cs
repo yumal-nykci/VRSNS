@@ -25,6 +25,7 @@ public partial class Player : CharacterBody3D
     {
         if (@event is InputEventMouseMotion motion)
         {
+            if (pausing|| Input.IsActionPressed("capture_release")) return;
             yaw -= motion.Relative.X * mouseSensitivity;
             pitch += motion.Relative.Y * mouseSensitivity;
             pitch = Mathf.Clamp(pitch, -89f, 89f);
@@ -35,7 +36,7 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Input.IsActionPressed("caputure_release")||pausing==true)
+        if (Input.IsActionPressed("capture_release") || pausing == true)
         {
             Input.MouseMode = Input.MouseModeEnum.Visible;
         }
@@ -43,6 +44,8 @@ public partial class Player : CharacterBody3D
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
         }
+        if (Input.IsActionJustPressed("open_close_menu")) pausing = !pausing;
+
         Vector2 inputDir = Input.GetVector(
             "move_left",
             "move_right",
