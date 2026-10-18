@@ -1,3 +1,102 @@
 [gd_scene format=3 uid="uid://cko83s33t4ebp"]
 
-[node name="main" type="Node3D"]
+[ext_resource type="Script" uid="uid://dbygayy38svap" path="res://Game/Game.cs" id="1_aq0ho"]
+[ext_resource type="Script" uid="uid://dil0mmusbqi4o" path="res://Game/Assets/Scripts/MouseUi.cs" id="1_f5lw1"]
+[ext_resource type="Texture2D" uid="uid://cx33apu3gummq" path="res://Game/Assets/Resources/crossbar.png" id="1_xb63x"]
+[ext_resource type="PackedScene" uid="uid://k4s8pm53m8nx" path="res://Game/player.tscn" id="3_aq0ho"]
+[ext_resource type="PackedScene" uid="uid://c04c3nceqyhcu" path="res://Game/UI/menu.tscn" id="5_wi015"]
+[ext_resource type="Script" uid="uid://blawy7y1j5t23" path="res://Game/WorldMg.cs" id="6_bktqc"]
+[ext_resource type="Script" uid="uid://bb55ekb1ckvc5" path="res://Game/NetworkMG.cs" id="6_wi015"]
+[ext_resource type="Script" uid="uid://bo327veoqapow" path="res://Game/PlayerMg.cs" id="8_bktqc"]
+[ext_resource type="Script" uid="uid://gi7ki5qga614" path="res://Game/Assets/Scripts/AvatarMg.cs" id="9_jclpe"]
+[ext_resource type="PackedScene" uid="uid://c8g325al18nbt" path="res://Game/Assets/Resources/fallbackavatar.tscn" id="9_xskti"]
+[ext_resource type="PackedScene" uid="uid://c3dqt1llv8u6d" path="res://Game/Assets/Resources/loading.tscn" id="10_xskti"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4k0jw"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i10rt"]
+size = Vector3(10, 0.01, 10)
+
+[node name="Game" type="CanvasLayer" unique_id=1946139398 node_paths=PackedStringArray("PauseMenu")]
+script = ExtResource("1_aq0ho")
+PauseMenu = NodePath("UI/MouseUI/Control/Control")
+
+[node name="UI" type="Node" parent="." unique_id=1937661201]
+
+[node name="MouseUI" type="CanvasLayer" parent="UI" unique_id=1296485132]
+script = ExtResource("1_f5lw1")
+
+[node name="ScreenRound" type="TextureRect" parent="UI/MouseUI" unique_id=1032550544]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Mouse" type="TextureRect" parent="UI/MouseUI" unique_id=779051498]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_xb63x")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="UI/MouseUI" unique_id=1757521905]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" parent="UI/MouseUI/Control" unique_id=1089568190 instance=ExtResource("5_wi015")]
+layout_mode = 1
+
+[node name="Network" type="Node" parent="." unique_id=1526808657 node_paths=PackedStringArray("playerMg", "WorldMg")]
+script = ExtResource("6_wi015")
+playerMg = NodePath("PlayerMg")
+WorldMg = NodePath("WorldMg")
+
+[node name="WorldMg" type="Node" parent="Network" unique_id=1539145989]
+script = ExtResource("6_bktqc")
+
+[node name="Node3D" type="Node3D" parent="Network/WorldMg" unique_id=1064620836]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Network/WorldMg/Node3D" unique_id=174799146]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Network/WorldMg/Node3D/StaticBody3D" unique_id=1270368528]
+mesh = SubResource("PlaneMesh_4k0jw")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Network/WorldMg/Node3D/StaticBody3D" unique_id=1168175556]
+shape = SubResource("BoxShape3D_i10rt")
+
+[node name="PlayerMg" type="Node" parent="Network" unique_id=43654636 node_paths=PackedStringArray("spawner")]
+script = ExtResource("8_bktqc")
+playerscene = ExtResource("3_aq0ho")
+spawner = NodePath("../MultiplayerSpawner")
+fallback = ExtResource("9_xskti")
+loading = ExtResource("10_xskti")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Network" unique_id=1906003765]
+spawn_path = NodePath("../PlayerMg")
+spawn_limit = 32
+
+[node name="AvatarMg" type="Node" parent="." unique_id=845115839]
+script = ExtResource("9_jclpe")
+
+[connection signal="Disconnected" from="Network" to="UI/MouseUI/Control/Control" method="OnDisconnected"]
+[connection signal="HostStarted" from="Network" to="UI/MouseUI/Control/Control" method="OnConnected"]

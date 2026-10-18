@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c3dqt1llv8u6d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ijk4"]
+transparency = 1
+albedo_color = Color(0, 1, 0.48235294, 0.45490196)
+metallic = 0.05
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jfbho"]
+material = SubResource("StandardMaterial3D_3ijk4")
+radius = 0.25
+height = 1.6
+
+[node name="Fallbackavatar" type="Node3D" unique_id=1093983321]
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1734799506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+text = "Loading"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=921671241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("CapsuleMesh_jfbho")
+skeleton = NodePath("../Label3D")

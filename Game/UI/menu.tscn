@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://c04c3nceqyhcu"]
+
+[ext_resource type="Script" uid="uid://cyv77etmk0tf1" path="res://Game/UI/Menu.cs" id="1_ykyyk"]
+[ext_resource type="Script" uid="uid://c0f2jmt71r0xv" path="res://Game/UI/ServerHost.cs" id="2_w110r"]
+[ext_resource type="Script" uid="uid://b6xf2a2unx0na" path="res://Game/UI/ClientJoin.cs" id="3_v5fet"]
+[ext_resource type="Script" uid="uid://cdqm5xmnpfy0t" path="res://Game/UI/DisconnectPeer.cs" id="4_v5fet"]
+[ext_resource type="Script" uid="uid://c206ve8y5avcj" path="res://Game/UI/ChangeName.cs" id="5_xts1q"]
+[ext_resource type="Script" uid="uid://e2tvnq73l4cc" path="res://Game/UI/UserList.cs" id="6_ljohm"]
+[ext_resource type="Script" uid="uid://6anm6x221v7t" path="res://Game/UI/ChangeAvatar.cs" id="7_pjl0m"]
+[ext_resource type="Script" uid="uid://dpr0nu1v37nxx" path="res://Game/UI/Fps.cs" id="8_sb0de"]
+
+[node name="PauseUI" type="VBoxContainer" unique_id=1139640710 node_paths=PackedStringArray("connectui", "disconnectui")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ykyyk")
+connectui = NodePath("VBoxContainer")
+disconnectui = NodePath("Disconnect")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2045427309]
+layout_mode = 2
+
+[node name="Host" type="VBoxContainer" parent="VBoxContainer" unique_id=1745277594 node_paths=PackedStringArray("port", "world", "button")]
+layout_mode = 2
+script = ExtResource("2_w110r")
+port = NodePath("HBoxContainer/Port")
+world = NodePath("HBoxContainer/World")
+button = NodePath("HBoxContainer/Button")
+
+[node name="Label" type="Label" parent="VBoxContainer/Host" unique_id=1040707431]
+layout_mode = 2
+text = "Host"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Host" unique_id=610934012]
+layout_mode = 2
+
+[node name="Port" type="LineEdit" parent="VBoxContainer/Host/HBoxContainer" unique_id=996112220]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "19132"
+placeholder_text = "Port"
+
+[node name="World" type="LineEdit" parent="VBoxContainer/Host/HBoxContainer" unique_id=948889040]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "node_3d"
+placeholder_text = "World"
+
+[node name="Button" type="Button" parent="VBoxContainer/Host/HBoxContainer" unique_id=285016929]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Host"
+
+[node name="Client" type="VBoxContainer" parent="VBoxContainer" unique_id=1170909957 node_paths=PackedStringArray("address", "port", "button")]
+layout_mode = 2
+script = ExtResource("3_v5fet")
+address = NodePath("HBoxContainer/IP")
+port = NodePath("HBoxContainer/Port")
+button = NodePath("HBoxContainer/Button")
+
+[node name="Label" type="Label" parent="VBoxContainer/Client" unique_id=1112033936]
+layout_mode = 2
+text = "Client"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Client" unique_id=392867437]
+layout_mode = 2
+
+[node name="IP" type="LineEdit" parent="VBoxContainer/Client/HBoxContainer" unique_id=1445638923]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "localhost"
+placeholder_text = "IP"
+
+[node name="Port" type="LineEdit" parent="VBoxContainer/Client/HBoxContainer" unique_id=1794091561]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "19132"
+placeholder_text = "Port"
+
+[node name="Button" type="Button" parent="VBoxContainer/Client/HBoxContainer" unique_id=300250689]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Join"
+
+[node name="Disconnect" type="VBoxContainer" parent="." unique_id=1750133754 node_paths=PackedStringArray("button")]
+visible = false
+layout_mode = 2
+script = ExtResource("4_v5fet")
+button = NodePath("Button")
+
+[node name="Label" type="Label" parent="Disconnect" unique_id=85518533]
+layout_mode = 2
+text = "Disconnect"
+
+[node name="Button" type="Button" parent="Disconnect" unique_id=1031966759]
+layout_mode = 2
+text = "Disconnect"
+
+[node name="ChangeName" type="VBoxContainer" parent="." unique_id=1096558465 node_paths=PackedStringArray("Username", "name", "button")]
+layout_mode = 2
+script = ExtResource("5_xts1q")
+Username = NodePath("Label2")
+name = NodePath("HBoxContainer2/LineEdit")
+button = NodePath("HBoxContainer2/Button")
+
+[node name="Label2" type="Label" parent="ChangeName" unique_id=1666789657]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ChangeName" unique_id=1556521423]
+layout_mode = 2
+text = "ChangeUserName"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ChangeName" unique_id=970104936]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="ChangeName/HBoxContainer2" unique_id=80050212]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="ChangeName/HBoxContainer2" unique_id=535746175]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Change Name"
+
+[node name="UserListF" type="VBoxContainer" parent="." unique_id=52910277 node_paths=PackedStringArray("TotalUser", "UserC")]
+layout_mode = 2
+script = ExtResource("6_ljohm")
+TotalUser = NodePath("TotalUser")
+UserC = NodePath("VBoxContainer")
+
+[node name="TotalUser" type="Label" parent="UserListF" unique_id=987952514]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UserListF" unique_id=1228106220]
+layout_mode = 2
+text = "Users:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserListF" unique_id=39558286]
+layout_mode = 2
+
+[node name="ChangeAvatar" type="VBoxContainer" parent="." unique_id=746799997 node_paths=PackedStringArray("avatarpath", "button")]
+layout_mode = 2
+script = ExtResource("7_pjl0m")
+avatarpath = NodePath("HBoxContainer/LineEdit")
+button = NodePath("HBoxContainer/Button")
+
+[node name="Avatar" type="Label" parent="ChangeAvatar" unique_id=1474106046]
+layout_mode = 2
+text = "Avatar"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ChangeAvatar" unique_id=735978855]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="ChangeAvatar/HBoxContainer" unique_id=781366476]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="ChangeAvatar/HBoxContainer" unique_id=1376351084]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Change Avatar"
+
+[node name="FPS" type="Label" parent="." unique_id=466185680]
+layout_mode = 2
+script = ExtResource("8_sb0de")

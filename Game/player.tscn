@@ -1,20 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://k4s8pm53m8nx"]
+[gd_scene format=3 uid="uid://k4s8pm53m8nx"]
 
 [ext_resource type="Script" uid="uid://da6mwgtrpxexr" path="res://Game/Player.cs" id="1_kwoj6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5gpxt"]
 radius = 0.25
 
-[node name="player" type="CharacterBody3D"]
-script = ExtResource("1_kwoj6")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_h4tjw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="player" type="CharacterBody3D" unique_id=2130558075 node_paths=PackedStringArray("AvatarRoot")]
+collision_layer = 2
+script = ExtResource("1_kwoj6")
+AvatarRoot = NodePath("Avatar/AvatarRoot")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=817341747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4358596, -0.06)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1810493148]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_5gpxt")
 
-[node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="Avatar" type="Node3D" parent="." unique_id=858366267]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-current = true
+
+[node name="AvatarRoot" type="Node3D" parent="Avatar" unique_id=1133821062]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=2091791802]
+replication_config = SubResource("SceneReplicationConfig_h4tjw")
+
+[node name="NamePlate" type="Label3D" parent="." unique_id=1485841565]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+billboard = 1

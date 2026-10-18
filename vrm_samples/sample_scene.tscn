@@ -1,8 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://c3wc05xvfpxsx"]
+[gd_scene format=3 uid="uid://c3wc05xvfpxsx"]
 
-[ext_resource type="PackedScene" uid="uid://d0cffjok5buw2" path="res://vrm_samples/AliciaSolid_vrm-0.51.vrm" id="1"]
+[ext_resource type="PackedScene" uid="uid://d0cffjok5buw2" path="res://Game/Avatars/AliciaSolid_vrm-0.51.vrm" id="1"]
 [ext_resource type="PackedScene" uid="uid://cf7tffjqoleo3" path="res://vrm_samples/Godette_vrm_v4.vrm" id="2"]
-[ext_resource type="Script" path="res://vrm_samples/sample_script.gd" id="3"]
+[ext_resource type="Script" uid="uid://dw4as6nyr6wfv" path="res://vrm_samples/sample_script.gd" id="3"]
 [ext_resource type="Animation" uid="uid://csxfsxsh2fe8x" path="res://vrm_samples/animation_vrm_samples.tres" id="6_uubhm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="68"]
