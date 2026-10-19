@@ -6,4 +6,5 @@
 godot-vrm
 godot-sandbox
 xr-tools
+twovoip
 godot engine
